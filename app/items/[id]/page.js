@@ -21,7 +21,7 @@ export default function ItemDetail({ params }) {
     )
 
         return (
-            <div className="container mx-auto p-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200">
+            <div className="container mx-auto p-4 h-screen text-gray-900 dark:text-gray-200">
                 <h1 className="text-3xl font-bold mb-4">{item.title}</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                     {item.images &&
@@ -37,7 +37,7 @@ export default function ItemDetail({ params }) {
                             </div>
                         ))}
                 </div>
-                <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
+                <div className="p-4 bg-white bg-opacity-5 rounded-lg shadow-md">
                     <p className="text-xl font-semibold mb-2">Price: <span className="text-blue-600">${item.price}</span></p>
                     <p className="mb-4"><span className="font-semibold">Description:</span> {item.description}</p>
                     <p className="mb-4"><span className="font-semibold">Location:</span> {item.location}</p>
