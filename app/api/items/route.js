@@ -17,6 +17,7 @@ export async function GET() {
         })
         return NextResponse.json(items)
     } catch (error) {
+        console.error(error)
         return NextResponse.json({ message: 'Error fetching items' }, { status: 500 })
     }
 }
@@ -37,6 +38,7 @@ export async function POST(req) {
         })
         return NextResponse.json(item, { status: 201 })
     } catch (error) {
+        console.error(error)
         return NextResponse.json({ message: 'Error creating item' }, { status: 400 })
     }
 }
