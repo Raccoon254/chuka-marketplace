@@ -21,7 +21,7 @@ export default function RegisterPage() {
             });
 
             if (response.ok) {
-                router.push('/login'); // Redirect to login page after successful registration
+                router.push('/auth/login'); // Redirect to login page after successful registration
             } else {
                 const data = await response.json();
                 setError(data.message || 'Registration failed');
