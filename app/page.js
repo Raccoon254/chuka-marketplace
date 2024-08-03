@@ -20,7 +20,7 @@ export default function Home() {
 
     return (
         <div className="min-h-screen bg-gray-900 text-white p-4 md:p-8">
-            <h1 className="text-3xl font-bold mb-6 text-center">Second-hand Marketplace</h1>
+            <h1 className="text-3xl font-bold mb-6 text-center">Chuka Marketplace</h1>
             {loading ? (
                 <div className="flex flex-col justify-center h-[80vh] items-center">
                     <span className="loading loading-ring loading-lg"></span>
@@ -31,7 +31,7 @@ export default function Home() {
             ) : (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map(item => (
-                        <li key={item.id} className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <li key={item.id} className="bg-gray-800 p-4 rounded-[24px] shadow-md hover:shadow-lg transition-shadow">
                             <Link href={`/items/${item.id}`} className="block">
                                 {item.images && item.images.length > 0 ? (
                                     <Image
