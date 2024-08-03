@@ -4,7 +4,6 @@ import LoginButton from '@/app/components/LoginButton'
 import React, { useEffect, useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useSnackbar } from 'notistack'
-import LoggedInNotification from '@/app/components/notifications/LoggedInNotification'
 
 export default function Login() {
     const { data: session } = useSession()
@@ -68,7 +67,11 @@ export default function Login() {
     }
 
     if (session) {
-        return <LoggedInNotification />
+        return(
+            <div>
+                You're already logged in
+            </div>
+        )
     }
 
     return (
