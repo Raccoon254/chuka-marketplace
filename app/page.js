@@ -22,8 +22,9 @@ export default function Home() {
         <div className="min-h-screen bg-gray-900 text-white p-4 md:p-8">
             <h1 className="text-3xl font-bold mb-6 text-center">Second-hand Marketplace</h1>
             {loading ? (
-                <div className="flex justify-center items-center">
-                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+                <div className="flex flex-col justify-center h-[80vh] items-center">
+                    <span className="loading loading-ring loading-lg"></span>
+                    <div className="text-sm mt-4">loading...</div>
                 </div>
             ) : items.length === 0 ? (
                 <p className="text-center text-gray-400">No items available at the moment. Please check back later.</p>
