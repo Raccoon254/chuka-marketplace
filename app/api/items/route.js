@@ -5,16 +5,7 @@ const prisma = new PrismaClient()
 
 export async function GET() {
     try {
-        const items = await prisma.item.findMany({
-            include: {
-                seller: {
-                    select: {
-                        name: true,
-                        email: true,
-                    },
-                },
-            },
-        })
+        const items = await prisma.item.findMany()
         return NextResponse.json(items)
     } catch (error) {
         console.error(error)
