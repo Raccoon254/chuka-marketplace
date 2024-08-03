@@ -20,59 +20,11 @@ Chuka Marketplace is a web application that allows users to buy and sell second-
 - **Prisma**: An ORM (Object-Relational Mapping) tool for database management.
 - **MongoDB**: A NoSQL database for storing application data.
 
-## Prisma Schema
-
-```prisma
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId
-  email            String    @unique
-  password         String
-  name             String
-  image            String?
-  resetToken       String?
-  resetTokenExpiry DateTime?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  items            Item[]
-}
-
-model Item {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-  price       Float
-  location    String
-  contact     String
-  images      String[]
-  sellerId    String   @db.ObjectId
-  seller      User     @relation(fields: [sellerId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model UserAction {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String   @db.ObjectId
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-```
-
 ## Installation
 
 1. **Clone the repository**:
    ```
-   git clone https://github.com/your-username/chuka-marketplace.git
+   git clone https://github.com/raccoon254/chuka-marketplace.git
    ```
 
 2. **Install dependencies**:
