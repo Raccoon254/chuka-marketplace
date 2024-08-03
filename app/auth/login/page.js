@@ -52,7 +52,7 @@ export default function Login() {
             email: email,
             password: password,
             redirect: true,
-            callbackUrl: '/intern/dashboard',
+            callbackUrl: '/',
         })
 
         setIsLoading(false)

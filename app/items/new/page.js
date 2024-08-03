@@ -1,47 +1,61 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSnackbar } from 'notistack';
 
 export default function NewItem() {
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState('')
-    const [location, setLocation] = useState('')
-    const [contact, setContact] = useState('')
-    const [images, setImages] = useState([])
-    const router = useRouter()
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [location, setLocation] = useState('');
+    const [contact, setContact] = useState('');
+    const [images, setImages] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleImageUpload = (e) => {
-        const files = Array.from(e.target.files)
+        const files = Array.from(e.target.files);
         files.forEach(file => {
-            const reader = new FileReader()
+            const reader = new FileReader();
             reader.onloadend = () => {
-                setImages(prev => [...prev, reader.result])
-            }
-            reader.readAsDataURL(file)
-        })
-    }
+                setImages(prev => [...prev, reader.result]);
+            };
+            reader.readAsDataURL(file);
+        });
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        const response = await fetch('/api/items', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                title,
-                description,
-                price: parseFloat(price),
-                location,
-                contact,
-                images,
-                sellerId: "1"
-            })
-        })
-        if (response.ok) {
-            router.push('/')
+        e.preventDefault();
+        setIsLoading(true);
+        try {
+            const response = await fetch('/api/items', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title,
+                    description,
+                    price: parseFloat(price),
+                    location,
+                    contact,
+                    images,
+                    sellerId: "66ae784103f26bcf7a04ca87"
+                })
+            });
+            if (response.ok) {
+                enqueueSnackbar('Item created successfully!', { variant: 'success' });
+                router.push('/');
+            } else {
+                throw new Error('Failed to create item');
+            }
+        } catch (error) {
+            console.error(error);
+            enqueueSnackbar('Error creating item. Please try again.', { variant: 'error' });
+        } finally {
+            setIsLoading(false);
         }
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded-lg shadow-lg">
@@ -119,7 +133,7 @@ export default function NewItem() {
                 type="submit"
                 className="w-full py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-500"
             >
-                Create Item
+                {isLoading ? 'Creating Item...' : 'Create Item'}
             </button>
         </form>
 
