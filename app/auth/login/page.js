@@ -52,7 +52,7 @@ export default function Login() {
             email: email,
             password: password,
             redirect: true,
-            callbackUrl: '/',
+            callbackUrl: '/catalog',
         })
 
         setIsLoading(false)
@@ -60,7 +60,7 @@ export default function Login() {
 
     if (isLoading) {
         return (
-            <main className="min-h-screen grid place-items-center w-full">
+            <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
                 <span className="loading loading-ring loading-lg"></span>
             </main>
         )
@@ -75,20 +75,15 @@ export default function Login() {
     }
 
     return (
-        <main className="min-h-screen grid place-items-center w-full">
+        <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
             <div className="w-full max-w-md m-4 p-4 ">
                 <center>
                     <div className="w-fit relative flex flex-col items-center">
-                        <h2 className="">
-                            <span className="text-green-400">Intern</span>
-                            Link&trade; Auth
+                        <h2 className="text-3xl font-semibold">
+                            <span className="text-green-400">Chuka Marketplace</span>
                         </h2>
-                        <div className="absolute top-[35px] right-0 mb-4 text-xs font-medium text-orange-800">
+                        <div className="absolute top-[35px] right-0 mb-4 text-xs font-medium text-gray-400">
                             By{' '}
-                            <a className={'text-blue-500'} href="https://futurespace.vercel.app">
-                                FutureSpace{' '}
-                            </a>
-                            and{' '}
                             <a className={'text-blue-500'} href="https://stevetom.vercel.app">
                                 KenTom
                             </a>
@@ -98,7 +93,7 @@ export default function Login() {
                 <div className="w-full mt-8">
                     <form className="shadow-sm p-6 rounded" onSubmit={handleSubmit}>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm mb-2" htmlFor="email">
+                            <label className="block text-gray-100 text-sm mb-2" htmlFor="email">
                                 Email
                             </label>
                             <input
@@ -121,7 +116,7 @@ export default function Login() {
                             {emailError && <p className="text-red-500">{emailError}</p>}
                         </div>
                         <div className="mb-6 relative">
-                            <label className="block text-gray-700 text-sm mb-2" htmlFor="password">
+                            <label className="block text-gray-100 text-sm mb-2" htmlFor="password">
                                 Password
                             </label>
                             <input
@@ -156,15 +151,9 @@ export default function Login() {
                         <div className="flex flex-col gap-3 items-center justify-between">
                             <input
                                 type={'submit'}
-                                className="btn btn-outline btn-secondary ring-2  ring-offset-1 w-full"
+                                className="btn btn-primary bg-blue-500 text-white ring-2 ring-offset-1 w-full"
                                 value={'Sign In'}
                             />
-                            <div className="flex w-full items-center justify-center">
-                                <hr className="w-full border-gray-300" />
-                                <span className="text-gray-500 mx-3">or</span>
-                                <hr className="w-full border-gray-300" />
-                            </div>
-                            <LoginButton />
                         </div>
                         <div className="flex text-[12px] underline underline-offset-2 gap-3">
                             <Link

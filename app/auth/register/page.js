@@ -1,17 +1,45 @@
 'use client'
 import React, {useState} from 'react';
 import {useRouter} from 'next/navigation';
+import { useSnackbar } from 'notistack'
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false)
+    const { enqueueSnackbar } = useSnackbar()
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+    const [passwordType, setPasswordType] = useState('password')
+
+    const validateEmail = (email) => {
+        const re = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/
+        return re.test(email)
+    }
+
+    const validatePassword = (password) => {
+        return password.length >= 1
+    }
+
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
+        e.preventDefault()
+        if (!validateEmail(email)) {
+            setEmailError('Invalid email')
+            enqueueSnackbar('Invalid email', { variant: 'error' })
+            return
+        }
+        if (!validatePassword(password)) {
+            setPasswordError('Password must be at least 8 characters')
+            enqueueSnackbar('Password must be at least 8 characters', { variant: 'error' })
+            return
+        }
+
+        setIsLoading(true)
 
         try {
             const response = await fetch('/api/auth/register', {
@@ -30,6 +58,14 @@ export default function RegisterPage() {
             setError('An error occurred. Please try again.');
         }
     };
+
+    if (isLoading) {
+        return (
+            <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
+                <span className="loading loading-ring loading-lg"></span>
+            </main>
+        )
+    }
 
     return (
         <div className="bg-gray-950 min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -56,7 +92,7 @@ export default function RegisterPage() {
                                     name="name"
                                     type="text"
                                     required
-                                    className="input input-md w-full mt-1"
+                                    className="input input-bordered input-md w-full max-w-md"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />
@@ -74,7 +110,7 @@ export default function RegisterPage() {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="input input-md w-full mt-1"
+                                    className="input input-bordered input-md w-full max-w-md"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
@@ -92,7 +128,7 @@ export default function RegisterPage() {
                                     type="password"
                                     autoComplete="new-password"
                                     required
-                                    className="input input-md w-full mt-1"
+                                    className="input input-bordered input-md w-full max-w-md"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -108,7 +144,7 @@ export default function RegisterPage() {
                         <div>
                             <button
                                 type="submit"
-                                className={'btn btn-md btn-primary text-white w-full'}
+                                className={'btn btn-primary bg-blue-500 text-white ring-2 ring-offset-1 w-full'}
                             >
                                 Register
                             </button>
