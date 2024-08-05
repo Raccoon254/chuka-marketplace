@@ -3,28 +3,44 @@ import Image from 'next/image'
 import Navbar from "@/app/components/guest/Navbar";
 
 export default function Home() {
+    const categories = {
+        'Electronics': 'fas fa-laptop',
+        'Furniture': 'fas fa-couch',
+        'Clothing': 'fas fa-tshirt',
+        'Appliances': 'fas fa-blender',
+    }
+
+    //['Electronics', 'Furniture', 'Clothing', 'Books']
+
     return (
         <main className="bg-gray-950 text-white min-h-screen">
             <Navbar />
-            <div className="container mx-auto px-4 py-12">
+            <div className="">
                 {/* Hero Section */}
-                <section className="text-center mb-24">
-                    <h1 className="text-5xl font-bold mb-6">Chuka Marketplace</h1>
-                    <p className="text-xl mb-8">Find great deals on second-hand items</p>
-                    <Link href="/browse" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
-                        Start Browsing
-                    </Link>
+                <section id="hero" className="text-center text-gray-400 h-[80vh] relative flex-col mb-12">
+                    <div className={`h-[80vh] z-10 flex flex-col bg-gray-950 bg-opacity-90 center justify-center items-center`}>
+                        <h1 className="text-5xl font-bold mb-6">Chuka Marketplace</h1>
+                        <p className="text-xl mb-8">Find great deals on second-hand items</p>
+                        <Link href="catalog"
+                              className="ring-blue-600 flex items-center hover:bg-blue-700 hover:bg-opacity-15 hover:text-white ring-2 hover:ring-blue-700 text-gray-400 font-bold py-3 px-6 rounded-full transition duration-300">
+                            Browse Items
+                        </Link>
+                    </div>
                 </section>
+
+                <div className="container mx-auto px-4 pb-24">
 
                 {/* Featured Categories */}
                 <section className="mb-24">
                     <h2 className="text-3xl font-semibold mb-8 text-center">Featured Categories</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {['Electronics', 'Furniture', 'Clothing', 'Books'].map((category) => (
+                        {Object.keys(categories).map(category => (
                             <div key={category} className="text-center">
                                 <div className="bg-gray-800 rounded-lg p-6 mb-4">
                                     {/* Replace with actual icons or images */}
-                                    <div className="w-16 h-16 mx-auto bg-gray-700 rounded-full"></div>
+                                    <div className="w-16 h-16 center mx-auto bg-gray-700 rounded-full">
+                                        <i className={`${categories[category]} text-3xl text-white`}></i>
+                                    </div>
                                 </div>
                                 <p className="font-medium">{category}</p>
                             </div>
@@ -59,6 +75,7 @@ export default function Home() {
                         Sign Up Now
                     </Link>
                 </section>
+            </div>
             </div>
         </main>
     )
