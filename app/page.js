@@ -31,7 +31,7 @@ export default function Home() {
 
                 <div className="container mx-auto px-4 pb-24">
                     {/* Featured Categories */}
-                    <section className="mb-24">
+                    <section className="mb-44">
                         <h2 className="text-3xl font-semibold mb-8 text-center">Featured Categories</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                             {Object.keys(categories).map(category => (
@@ -49,21 +49,23 @@ export default function Home() {
                     </section>
 
                     {/* How It Works */}
-                    <section className="mb-24">
-                        <h2 className="text-3xl font-semibold mb-8 text-center">How It Works</h2>
-                        <div className="grid md:grid-cols-3 gap-8">
+                    <section className="mb-44">
+                        <h2 className="text-3xl font-semibold mb-12 text-center">How It Works</h2>
+                        <div className="flex flex-col md:grid md:grid-cols-3 gap-8">
                             {[
                                 {title: 'Browse', description: 'Explore our wide selection of second-hand items'},
                                 {title: 'Connect', description: 'Get in touch with sellers directly'},
                                 {title: 'Purchase', description: 'Buy your desired items at great prices'}
                             ].map((step, index) => (
-                                <div key={index} className="text-center">
+                                <div key={index} className="md:text-center border-b md:border-none pb-4 border-gray-700">
                                     <div
-                                        className="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                        className="bg-gray-800 rounded-lg md:rounded-full w-16 h-16 flex items-center justify-center md:mx-auto mb-4">
                                         <span className="text-2xl font-bold">{index + 1}</span>
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                                    <p>{step.description}</p>
+                                    <div>
+                                        <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                                        <p className="font-thin">{step.description}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
