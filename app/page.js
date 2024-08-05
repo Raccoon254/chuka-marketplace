@@ -1,71 +1,64 @@
-'use client'
-
-import {useState, useEffect} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Navbar from "@/app/components/guest/Navbar";
 
 export default function Home() {
-    const [items, setItems] = useState([])
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        fetch('/api/items')
-            .then(res => res.json())
-            .then(data => {
-                setItems(data)
-                setLoading(false)
-            })
-            .catch(() => setLoading(false))
-    }, [])
-
     return (
-        <main>
-            <Navbar/>
-            <div className="min-h-screen bg-gray-950 text-white p-4 md:p-8">
+        <main className="bg-gray-950 text-white min-h-screen">
+            <Navbar />
+            <div className="container mx-auto px-4 py-12">
+                {/* Hero Section */}
+                <section className="text-center mb-24">
+                    <h1 className="text-5xl font-bold mb-6">Chuka Marketplace</h1>
+                    <p className="text-xl mb-8">Find great deals on second-hand items</p>
+                    <Link href="/browse" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
+                        Start Browsing
+                    </Link>
+                </section>
 
-                <h1 className="text-3xl font-bold mb-6 text-center">Chuka Marketplace</h1>
-                {loading ? (
-                    <div className="flex flex-col justify-center h-[80vh] items-center">
-                        <span className="loading loading-ring loading-lg"></span>
-                        <div className="text-sm mt-4">loading...</div>
-                    </div>
-                ) : items.length === 0 ? (
-                    <div className="center h-[80vh] text-gray-400">
-                        <div className='center flex-col'>
-                            <i className="fas fa-triangle-exclamation text-red-500 opacity-50 text-3xl"></i>
-                            <p className={'text-sm'}>No items available, check back later</p>
-                        </div>
-                    </div>
-                ) : (
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {items.map(item => (
-                            <li key={item.id}
-                                className="bg-gray-800 p-4 rounded-[24px] shadow-md hover:shadow-lg transition-shadow">
-                                <Link href={`/items/${item.id}`} className="block">
-                                    {item.images && item.images.length > 0 ? (
-                                        <Image
-                                            src={item.images[0]}
-                                            alt={item.title}
-                                            width={400}
-                                            height={300}
-                                            className="rounded-lg"
-                                        />
-                                    ) : (
-                                        <div
-                                            className="w-full h-60 bg-gray-700 flex items-center justify-center rounded-lg">
-                                            <span className="text-gray-400">No Image Available</span>
-                                        </div>
-                                    )}
-                                    <div className="mt-4">
-                                        <h2 className="text-xl font-semibold">{item.title}</h2>
-                                        <p className="text-blue-400">${item.price}</p>
-                                    </div>
-                                </Link>
-                            </li>
+                {/* Featured Categories */}
+                <section className="mb-24">
+                    <h2 className="text-3xl font-semibold mb-8 text-center">Featured Categories</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {['Electronics', 'Furniture', 'Clothing', 'Books'].map((category) => (
+                            <div key={category} className="text-center">
+                                <div className="bg-gray-800 rounded-lg p-6 mb-4">
+                                    {/* Replace with actual icons or images */}
+                                    <div className="w-16 h-16 mx-auto bg-gray-700 rounded-full"></div>
+                                </div>
+                                <p className="font-medium">{category}</p>
+                            </div>
                         ))}
-                    </ul>
-                )}
+                    </div>
+                </section>
+
+                {/* How It Works */}
+                <section className="mb-24">
+                    <h2 className="text-3xl font-semibold mb-8 text-center">How It Works</h2>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { title: 'Browse', description: 'Explore our wide selection of second-hand items' },
+                            { title: 'Connect', description: 'Get in touch with sellers directly' },
+                            { title: 'Purchase', description: 'Buy your desired items at great prices' }
+                        ].map((step, index) => (
+                            <div key={index} className="text-center">
+                                <div className="bg-gray-800 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <span className="text-2xl font-bold">{index + 1}</span>
+                                </div>
+                                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                                <p>{step.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Call to Action */}
+                <section className="text-center">
+                    <h2 className="text-3xl font-semibold mb-6">Ready to find your next treasure?</h2>
+                    <Link href="/signup" className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
+                        Sign Up Now
+                    </Link>
+                </section>
             </div>
         </main>
     )
