@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "rm -rf .next && next dev",
     "build": "next build",
+    "migrate": "npx prisma migrate dev --name init",
+    "fix": "npx prisma migrate dev --create-only",
     "start": "next start",
     "lint": "next lint"
   },
