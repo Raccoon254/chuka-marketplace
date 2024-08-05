@@ -27,7 +27,12 @@ export default function Home() {
                     <div className="text-sm mt-4">loading...</div>
                 </div>
             ) : items.length === 0 ? (
-                <p className="text-center text-gray-400">No items available at the moment. Please check back later.</p>
+                <div className="center h-[80vh] text-gray-400">
+                    <div className='center flex-col'>
+                        <i className="fas fa-triangle-exclamation text-red-500 opacity-50 text-3xl"></i>
+                        <p className={'text-sm'}>No items available, check back later</p>
+                    </div>
+                </div>
             ) : (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map(item => (
