@@ -74,7 +74,7 @@ export default function Home() {
                     {/* Call to Action */}
                     <section className="text-center">
                         <h2 className="text-3xl font-semibold mb-6">Ready to find your next treasure?</h2>
-                        <Link href="/signup"
+                        <Link href="auth/register"
                               className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
                             Sign Up Now
                         </Link>
