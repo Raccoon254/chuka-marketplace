@@ -3,10 +3,13 @@ import React, {useState} from 'react';
 import {useRouter} from 'next/navigation';
 import { useSnackbar } from 'notistack'
 import Link from "next/link";
+import LoginButton from "@/app/components/LoginButton";
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const { data: session } = useSession()
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [password, setPassword] = useState('');
@@ -64,6 +67,36 @@ export default function RegisterPage() {
         return (
             <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
                 <span className="loading loading-ring loading-lg"></span>
+            </main>
+        )
+    }
+
+    if (session) {
+        return(
+            <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
+                <div className="w-full max-w-md m-4 p-4 ">
+                    <center>
+                        <div className="w-fit relative flex flex-col items-center">
+                            <h2 className="text-3xl font-semibold">
+                                <span className="text-green-400">Chuka Marketplace</span>
+                            </h2>
+                            <div className="absolute top-[35px] right-0 mb-4 text-xs font-medium text-gray-400">
+                                By{' '}
+                                <a className={'text-blue-500'} href="https://stevetom.vercel.app">
+                                    KenTom
+                                </a>
+                            </div>
+                        </div>
+                    </center>
+                    <div className="w-full mt-8">
+                        <div className="shadow-sm p-6 rounded">
+                            <div className="mb-4 center">
+                                <h2 className="text-xl font-semibold">Logged in as {session.user.email}</h2>
+                            </div>
+                            <LoginButton />
+                        </div>
+                    </div>
+                </div>
             </main>
         )
     }

@@ -85,12 +85,12 @@ export default function Login() {
                     </center>
                     <div className="w-full mt-8">
                         <div className="shadow-sm p-6 rounded">
-                            <div className="mb-4">
+                            <div className="mb-4 center">
                                 <h2 className="text-xl font-semibold">Logged in as {session.user.email}</h2>
                             </div>
-                            <div className="flex flex-col gap-3 items-center justify-between">
+
                                 <LoginButton />
-                            </div>
+
                         </div>
                     </div>
                 </div>
