@@ -7,8 +7,8 @@ export default function LoginButton() {
         return (
             <>
                 {/*Signed in as {session.user.email} <br />*/}
-                <button className={'btn text-white w-full bg-red-300 ring-1 ring-offset-1'} onClick={() => signOut()}>
-                    {session.user.email} <i className="fas fa-sign-out-alt"> </i>
+                <button className={'btn text-white w-full ring-1 ring-offset-1'} onClick={() => signOut()}>
+                    Logout
                 </button>
             </>
         )

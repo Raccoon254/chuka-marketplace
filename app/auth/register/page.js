@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import {useRouter} from 'next/navigation';
 import { useSnackbar } from 'notistack'
+import Link from "next/link";
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
@@ -9,7 +10,6 @@ export default function RegisterPage() {
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false)
     const { enqueueSnackbar } = useSnackbar()
@@ -152,12 +152,6 @@ export default function RegisterPage() {
                             {passwordError && <p className="text-red-500">{passwordError}</p>}
                         </div>
 
-                        {error && (
-                            <div className="text-red-600 text-sm">
-                                {error}
-                            </div>
-                        )}
-
                         <div>
                             <button
                                 type="submit"
@@ -167,6 +161,18 @@ export default function RegisterPage() {
                             </button>
                         </div>
                     </form>
+
+                    <div>
+                        <p className="mt-2 text-center text-sm text-gray-400">
+                            Already have an account?{' '}
+                            <Link
+                                href="/auth/login"
+                                className="font-medium text-blue-500 hover:text-blue-400"
+                            >
+                                Login
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

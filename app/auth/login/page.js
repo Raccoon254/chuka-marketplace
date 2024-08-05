@@ -68,9 +68,33 @@ export default function Login() {
 
     if (session) {
         return(
-            <div>
-                You're already logged in
-            </div>
+            <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
+                <div className="w-full max-w-md m-4 p-4 ">
+                    <center>
+                        <div className="w-fit relative flex flex-col items-center">
+                            <h2 className="text-3xl font-semibold">
+                                <span className="text-green-400">Chuka Marketplace</span>
+                            </h2>
+                            <div className="absolute top-[35px] right-0 mb-4 text-xs font-medium text-gray-400">
+                                By{' '}
+                                <a className={'text-blue-500'} href="https://stevetom.vercel.app">
+                                    KenTom
+                                </a>
+                            </div>
+                        </div>
+                    </center>
+                    <div className="w-full mt-8">
+                        <div className="shadow-sm p-6 rounded">
+                            <div className="mb-4">
+                                <h2 className="text-xl font-semibold">Logged in as {session.user.email}</h2>
+                            </div>
+                            <div className="flex flex-col gap-3 items-center justify-between">
+                                <LoginButton />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         )
     }
 
