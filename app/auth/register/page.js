@@ -25,7 +25,6 @@ export default function RegisterPage() {
         return password.length >= 1
     }
 
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!validateEmail(email)) {
@@ -47,15 +46,17 @@ export default function RegisterPage() {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({name, email, password}),
             });
-
             if (response.ok) {
+                enqueueSnackbar('User created successfully', { variant: 'success' })
+                setIsLoading(false)
                 router.push('/auth/login');
             } else {
+                setIsLoading(false)
                 const data = await response.json();
-                setError(data.message || 'Registration failed');
+                enqueueSnackbar(data.message || 'Registration failed', { variant: 'error' })
             }
         } catch (err) {
-            setError('An error occurred. Please try again.');
+            enqueueSnackbar('Registration failed, Please try again', { variant: 'error' })
         }
     };
 
@@ -117,22 +118,38 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium">
+                        <div className="relative">
+                            <label className="block text-gray-100 text-sm mb-2" htmlFor="password">
                                 Password
                             </label>
-                            <div className="mt-1">
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    autoComplete="new-password"
-                                    required
-                                    className="input input-bordered input-md w-full max-w-md"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
+                            <input
+                                className="input input-bordered input-md w-full max-w-md"
+                                id="password"
+                                type={passwordType}
+                                placeholder="************"
+                                value={password}
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                    if (!validatePassword(e.target.value)) {
+                                        setPasswordError('Password must be at least 8 characters')
+                                    } else {
+                                        setPasswordError('')
+                                    }
+                                }}
+                            />
+                            <span className="absolute right-0 top-[30px] mt-2 mr-2">
+								<button
+                                    type="button"
+                                    className="btn btn-xs btn-circle btn-ghost"
+                                    onClick={() => {
+                                        setIsPasswordVisible(!isPasswordVisible)
+                                        setPasswordType(isPasswordVisible ? 'password' : 'text')
+                                    }}
+                                >
+									<i className={`fas ${isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+								</button>
+							</span>
+                            {passwordError && <p className="text-red-500">{passwordError}</p>}
                         </div>
 
                         {error && (

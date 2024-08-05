@@ -25,6 +25,9 @@ export async function POST(req) {
         return NextResponse.json({ message: 'User created successfully' }, { status: 201 })
     } catch (error) {
         console.error(error)
+        if (error.code === 'P2002') {
+            return NextResponse.json({ message: 'Email already exists' }, { status: 400 })
+        }
         return NextResponse.json({ message: 'Error creating user' }, { status: 400 })
     }
 }
