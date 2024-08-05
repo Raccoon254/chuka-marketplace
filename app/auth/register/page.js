@@ -1,6 +1,6 @@
 'use client'
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, {useState} from 'react';
+import {useRouter} from 'next/navigation';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
@@ -16,12 +16,12 @@ export default function RegisterPage() {
         try {
             const response = await fetch('/api/auth/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password }),
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, email, password}),
             });
 
             if (response.ok) {
-                router.push('/auth/login'); // Redirect to login page after successful registration
+                router.push('/auth/login');
             } else {
                 const data = await response.json();
                 setError(data.message || 'Registration failed');
@@ -32,11 +32,15 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 className="mt-6 text-center text-3xl font-extrabold">
-                    Create your account
-                </h2>
+        <div className="bg-gray-950 min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <div className="sm:mx-auto px-4 sm:px-10 sm:w-full sm:max-w-md">
+                <h2 className="mt-6 text-3xl font-bold text-white">Register</h2>
+                <div className="mt-2 text-lg flex text-gray-400">Welcome to
+                    <span className='flex ml-1 flex-col justify-end'>
+                        <h1 className='text-lg font-semibold'>Marketplace</h1>
+                        <p className='-mt-[4px] text-end uppercase text-xs opacity-40'>Chuka</p>
+                    </span>
+                </div>
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -52,7 +56,7 @@ export default function RegisterPage() {
                                     name="name"
                                     type="text"
                                     required
-                                    className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="input input-md w-full mt-1"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />
@@ -70,7 +74,7 @@ export default function RegisterPage() {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="input input-md w-full mt-1"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
@@ -88,7 +92,7 @@ export default function RegisterPage() {
                                     type="password"
                                     autoComplete="new-password"
                                     required
-                                    className="appearance-none text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="input input-md w-full mt-1"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -104,7 +108,7 @@ export default function RegisterPage() {
                         <div>
                             <button
                                 type="submit"
-                                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className={'btn btn-md btn-primary text-white w-full'}
                             >
                                 Register
                             </button>

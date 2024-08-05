@@ -75,7 +75,7 @@ export default function Home() {
                     <section className="text-center">
                         <h2 className="text-3xl font-semibold mb-6">Ready to find your next treasure?</h2>
                         <Link href="auth/register"
-                              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
+                              className="ring-2 ring-green-600 text-green-600 font-bold py-3 px-6 rounded-full transition duration-300 hover:bg-green-600 hover:text-white">
                             Sign Up Now
                         </Link>
                     </section>
