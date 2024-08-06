@@ -51,6 +51,8 @@ export default function NewItem() {
         e.preventDefault();
         setIsLoading(true);
         try {
+            setLocation(location + ' location point = [' + currentLocation.latitude + ', ' + currentLocation.longitude + ']');
+
             const response = await fetch('/api/items', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
