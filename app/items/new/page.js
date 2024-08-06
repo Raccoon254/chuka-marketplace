@@ -4,8 +4,10 @@ import React, {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import {useSnackbar} from 'notistack';
 import Navbar from "@/app/components/guest/Navbar";
+import {useSession} from "next-auth/react";
 
 export default function NewItem() {
+    const { data: session } = useSession()
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -53,6 +55,13 @@ export default function NewItem() {
         try {
             setLocation(location + ' location point = [' + currentLocation.latitude + ', ' + currentLocation.longitude + ']');
 
+            let id = session.user.id;
+
+            if (!id) {
+                enqueueSnackbar('You must be logged in to create an item.', {variant: 'error'});
+                return;
+            }
+
             const response = await fetch('/api/items', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -64,7 +73,7 @@ export default function NewItem() {
                     contact,
                     categoryId: parseInt(categoryId),
                     images,
-                    sellerId: "66ae784103f26bcf7a04ca87"
+                    sellerId: id
                 })
             });
             if (response.ok) {
@@ -80,6 +89,14 @@ export default function NewItem() {
             setIsLoading(false);
         }
     };
+
+    if (!session) {
+        return (
+            <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
+                <span className="loading loading-ring loading-lg"></span>
+            </main>
+        )
+    }
 
     if (isLoading) {
         return (
