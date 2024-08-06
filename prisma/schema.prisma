@@ -74,6 +74,8 @@ model UserRating {
 model Visitors {
   id        Int      @id @default(autoincrement())
   ip        String   @unique
+  location  String?
+  userAgent String?
   createdAt DateTime @default(now())
 }
 
