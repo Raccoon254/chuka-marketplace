@@ -7,7 +7,6 @@ export async function GET() {
     try {
         console.log('GET /api/items')
         const items = await prisma.item.findMany()
-        console.log(items)
         return NextResponse.json(items)
     } catch (error) {
         console.error(error)
@@ -22,11 +21,14 @@ export async function POST(req) {
             data: {
                 title,
                 description,
+                verified: false,
                 price,
                 location,
                 contact,
-                sellerId,
                 images,
+                sellerId,
+                categoryId,
+                status: 'AVAILABLE',
             },
         })
         return NextResponse.json(item, { status: 201 })
