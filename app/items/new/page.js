@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 
@@ -10,10 +10,19 @@ export default function NewItem() {
     const [price, setPrice] = useState('');
     const [location, setLocation] = useState('');
     const [contact, setContact] = useState('');
+    const [categoryId, setCategoryId] = useState('');
     const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/categories')
+            .then(response => response.json())
+            .then(data => setCategories(data))
+            .catch(error => console.error(error));
+    }, []);
 
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
@@ -39,6 +48,7 @@ export default function NewItem() {
                     price: parseFloat(price),
                     location,
                     contact,
+                    categoryId: parseInt(categoryId),
                     images,
                     sellerId: "66ae784103f26bcf7a04ca87"
                 })
@@ -56,6 +66,14 @@ export default function NewItem() {
             setIsLoading(false);
         }
     };
+
+    if (isLoading) {
+        return (
+            <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
+                <span className="loading loading-ring loading-lg"></span>
+            </main>
+        )
+    }
 
     return (
         <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded-lg shadow-lg">
@@ -119,6 +137,18 @@ export default function NewItem() {
                 />
             </div>
             <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="category">Category</label>
+                <input
+                    type="number"
+                    id="category"
+                    value={categoryId}
+                    onChange={e => setCategoryId(e.target.value)}
+                    placeholder="Category ID"
+                    required
+                    className="w-full px-3 py-2 bg-gray-800 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                />
+            </div>
+            <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="images">Images</label>
                 <input
                     type="file"
@@ -136,6 +166,5 @@ export default function NewItem() {
                 {isLoading ? 'Creating Item...' : 'Create Item'}
             </button>
         </form>
-
     )
 }
