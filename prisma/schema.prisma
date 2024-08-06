@@ -71,6 +71,12 @@ model UserRating {
   user User @relation(fields: [userId], references: [id])
 }
 
+model Visitors {
+  id        Int      @id @default(autoincrement())
+  ip        String
+  createdAt DateTime @default(now())
+}
+
 enum UserRole {
   USER
   ADMIN
