@@ -24,7 +24,6 @@ export default function Home() {
             <Navbar/>
             <div className="min-h-screen bg-gray-950 text-white p-4 md:p-8">
 
-                <h1 className="text-3xl font-bold mb-6 text-center">Chuka Marketplace</h1>
                 {loading ? (
                     <div className="flex flex-col justify-center h-[80vh] items-center">
                         <span className="loading loading-ring loading-lg"></span>
@@ -41,20 +40,20 @@ export default function Home() {
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {items.map(item => (
                             <li key={item.id}
-                                className="bg-gray-800 p-4 rounded-[24px] shadow-md hover:shadow-lg transition-shadow">
+                                className=" ring-2 ring-gray-900 ring-opacity-25 p-2 rounded-[16px] shadow-md hover:shadow-lg transition-all hover:ring-gray-600 hover:scale-105 duration-500">
                                 <Link href={`/items/${item.id}`} className="block">
                                     {item.images && item.images.length > 0 ? (
-                                        <Image
-                                            src={item.images[0]}
-                                            alt={item.title}
-                                            width={400}
-                                            height={300}
-                                            className="rounded-lg"
-                                        />
+                                        <div className="h-56 rounded-lg overflow-clip">
+                                            <img
+                                                src={item.images[0]}
+                                                alt={item.title}
+                                                className="object-cover h-56 w-full"
+                                            />
+                                        </div>
                                     ) : (
                                         <div
                                             className="w-full h-60 bg-gray-700 flex items-center justify-center rounded-lg">
-                                            <span className="text-gray-400">No Image Available</span>
+                                        <span className="text-gray-400">No Image Available</span>
                                         </div>
                                     )}
                                     <div className="mt-4">

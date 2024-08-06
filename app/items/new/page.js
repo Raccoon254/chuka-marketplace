@@ -78,7 +78,7 @@ export default function NewItem() {
             });
             if (response.ok) {
                 enqueueSnackbar('Item created successfully!', {variant: 'success'});
-                router.push('/');
+                router.push('/catalog');
             } else {
                 throw new Error('Failed to create item');
             }

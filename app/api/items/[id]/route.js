@@ -7,7 +7,9 @@ export async function GET(req, { params }) {
     const { id } = params
     try {
         const item = await prisma.item.findUnique({
-            where: { id },
+            where: {
+                id: parseInt(id)
+            },
             include: {
                 seller: {
                     select: {
@@ -22,6 +24,7 @@ export async function GET(req, { params }) {
         }
         return NextResponse.json(item)
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ message: 'Error fetching item' }, { status: 500 })
     }
 }

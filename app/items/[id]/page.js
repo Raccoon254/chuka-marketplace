@@ -14,14 +14,14 @@ export default function ItemDetail({params}) {
     }, [id])
 
     if (!item) return (
-        <div className="h-screen flex flex-col items-center justify-center">
+        <div className="h-screen bg-gray-950 flex flex-col items-center justify-center">
             <span className="loading loading-ring loading-lg"></span>
             <div className="text-sm mt-4">loading...</div>
         </div>
     )
 
     return (
-        <div className="container mx-auto p-4 h-screen text-gray-900 dark:text-gray-200">
+        <div className="bg-gray-950 mx-auto p-4 h-screen text-gray-900 dark:text-gray-200">
             <h1 className="text-3xl font-bold mb-4">{item.title}</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                 {item.images &&
@@ -43,7 +43,6 @@ export default function ItemDetail({params}) {
                 <p className="mb-4"><span className="font-semibold">Description:</span> {item.description}</p>
                 <p className="mb-4"><span className="font-semibold">Location:</span> {item.location}</p>
                 <p className="mb-4"><span className="font-semibold">Contact:</span> {item.contact}</p>
-                <p className="mb-4"><span className="font-semibold">Seller:</span> {item.seller.name}</p>
             </div>
 
             {/*Back button*/}
