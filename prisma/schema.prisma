@@ -73,7 +73,7 @@ model UserRating {
 
 model Visitors {
   id        Int      @id @default(autoincrement())
-  ip        String
+  ip        String   @unique
   createdAt DateTime @default(now())
 }
 
