@@ -17,12 +17,23 @@ export default function NewItem() {
     const router = useRouter();
     const {enqueueSnackbar} = useSnackbar();
     const [categories, setCategories] = useState([]);
+    const [currentLocation, setCurrentLocation] = useState({latitude: 0, longitude: 0});
 
     useEffect(() => {
         fetch('/api/category')
             .then(response => response.json())
             .then(data => setCategories(data))
             .catch(error => console.error(error));
+    }, []);
+
+    useEffect(() => {
+        //get the current location latitude and longitude
+        navigator.geolocation.getCurrentPosition((position) => {
+            setCurrentLocation({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            });
+        });
     }, []);
 
     const handleImageUpload = (e) => {
@@ -72,6 +83,39 @@ export default function NewItem() {
         return (
             <main className="min-h-screen bg-gray-950 grid place-items-center w-full">
                 <span className="loading loading-ring loading-lg"></span>
+            </main>
+        )
+    }
+
+    // if we have no current, tell the user to allow location access
+    if (currentLocation.latitude === 0 && !currentLocation.longitude === 0) {
+        function refreshPage() {
+            window.location.reload();
+        }
+        return (
+            <main className="min-h-screen relative bg-gray-950 grid place-items-center w-full">
+                <div className="center flex-col">
+                    <div>
+                        <i className="fas fa-exclamation-triangle text-6xl text-green-600"></i>
+                    </div>
+                    <h1 className="text-3xl font-bold text-gray-300 p-3">Location Access Required</h1>
+                    <p className="text-gray-300 p-2 mb-4">Please allow location access to create an item.</p>
+                    <button
+                        onClick={refreshPage}
+                        className="w-full max-w-md py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-500"
+                    >
+                        Refresh
+                    </button>
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-center text-gray-300">
+                    <div className="opacity-30 text-xs mb-4">
+                        We need your location to provide better location-based services for all items. Please allow location access.
+                    </div>
+                    <p className="text-sm">Powered by{' '}
+                        <a className="text-blue-500" href="https://stevetom.vercel.app">kenTom</a>
+                    </p>
+                </div>
             </main>
         )
     }
